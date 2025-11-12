@@ -1,0 +1,157 @@
+Checks:
+  - "-*"  # Desativa todos os checks por padrão
+  
+  # Pacotes principais que cobrem várias verificações de qualidade e estilo
+  - "clang-analyzer-*"   # Verificações estáticas de erros e problemas (análise estática)
+  - "bugprone-*"         # Verificações de possíveis bugs no código
+  - "cert-*"             # Verificações baseadas nas recomendações do CERT
+  - "cppcoreguidelines-*" # Diretrizes para escrever C++ moderno e seguro
+  - "modernize-*"        # Verificações para atualizar o código com técnicas mais modernas
+  - "performance-*"      # Verificações de desempenho, como otimizações
+  - "portability-*"      # Verificações que buscam garantir a portabilidade do código
+  - "readability-*"      # Verificações relacionadas à legibilidade do código
+  
+  # Específicos usados no projeto
+  - "boost-*"            # Verificações para código que usa a biblioteca Boost
+  - "-openmp-*"          # Desativa as verificações do OpenMP
+  
+  # Desative alguns avisos ruidosos/opinativos (mantenha se quiser mais rigor)
+  - "-modernize-use-trailing-return-type"   # Desabilita a verificação para usar o trailing return type
+  - "-readability-identifier-length"        # Desabilita a verificação de comprimento de identificadores (útil em gráficos ou códigos com nomes como 'u', 'v')
+  - "-cppcoreguidelines-avoid-magic-numbers" # Desabilita a verificação sobre números mágicos (pode ser comum em gráficos, etc.)
+  - "-readability-magic-numbers"            # Desabilita a verificação sobre números mágicos
+  - "-cppcoreguidelines-avoid-const-or-ref-data-members" # Desabilita a verificação para evitar membros constantes ou referências
+  - "-bugprone-easily-swappable-parameters" # Desabilita a verificação de parâmetros facilmente trocáveis
+  
+  # Evite “briga” com ranges até padronizar seu uso
+  - "-boost-use-ranges"      # Desabilita a verificação sobre o uso de ranges do Boost
+  - "-modernize-use-ranges"  # Desabilita a verificação para substituir loops por ranges no código moderno
+
+WarningsAsErrors: "cert-*,bugprone-*,clang-analyzer-*,performance-*"
+# Converte os avisos dos checks especificados em erros (falhas de compilação). Essencial para garantir que esses problemas sejam corrigidos.
+
+HeaderFilterRegex: ""
+# Esta regex filtra os arquivos de cabeçalho a serem analisados. Está em branco para analisar todos os cabeçalhos.
+
+FormatStyle: file
+# Faz o clang-tidy usar o estilo de formatação especificado no arquivo de código-fonte (se presente), sem impor um estilo fixo.
+
+CheckOptions:
+  # Nomeação (identifier-naming) para garantir consistência nos nomes das entidades no código
+  - key: readability-identifier-naming.NamespaceCase
+    value: lower_case
+    # Usa o estilo lower_case para nomes de namespaces.
+  
+  - key: readability-identifier-naming.ClassCase
+    value: PascalCase
+    # Usa o estilo PascalCase para nomes de classes.
+  
+  - key: readability-identifier-naming.StructCase
+    value: PascalCase
+    # Usa o estilo PascalCase para nomes de structs.
+  
+  - key: readability-identifier-naming.UnionCase
+    value: PascalCase
+    # Usa o estilo PascalCase para nomes de unions.
+  
+  - key: readability-identifier-naming.TypeAliasCase
+    value: PascalCase
+    # Usa o estilo PascalCase para aliases de tipos (type aliases).
+  
+  - key: readability-identifier-naming.TypedefCase
+    value: PascalCase
+    # Usa o estilo PascalCase para typedefs.
+  
+  - key: readability-identifier-naming.TemplateParameterCase
+    value: PascalCase
+    # Usa o estilo PascalCase para parâmetros de template.
+  
+  - key: readability-identifier-naming.EnumCase
+    value: PascalCase
+    # Usa o estilo PascalCase para nomes de enums.
+  
+  - key: readability-identifier-naming.EnumConstantCase
+    value: UPPER_CASE
+    # Usa o estilo UPPER_CASE para constantes de enums.
+  
+  - key: readability-identifier-naming.FunctionCase
+    value: lower_case
+    # Usa o estilo lower_case para nomes de funções.
+
+  # Permite que o `main` e operadores não sigam o padrão de nomeação
+  - key: readability-identifier-naming.FunctionIgnoredRegexp
+    value: "^(main|operator.*)$"
+    # Ignora o padrão de nomeação para funções como `main` ou operadores.
+
+  - key: readability-identifier-naming.VariableCase
+    value: lower_case
+    # Usa o estilo lower_case para nomes de variáveis.
+
+  - key: readability-identifier-naming.GlobalVariableCase
+    value: lower_case
+    # Usa o estilo lower_case para variáveis globais.
+  
+  - key: readability-identifier-naming.ParameterCase
+    value: lower_case
+    # Usa o estilo lower_case para parâmetros de função.
+  
+  - key: readability-identifier-naming.LocalConstantCase
+    value: UPPER_CASE
+    # Usa o estilo UPPER_CASE para constantes locais.
+  
+  - key: readability-identifier-naming.ConstantCase
+    value: UPPER_CASE
+    # Usa o estilo UPPER_CASE para constantes globais.
+  
+  - key: readability-identifier-naming.ClassConstantCase
+    value: UPPER_CASE
+    # Usa o estilo UPPER_CASE para constantes dentro de classes.
+  
+  - key: readability-identifier-naming.GlobalConstantCase
+    value: UPPER_CASE
+    # Usa o estilo UPPER_CASE para constantes globais.
+  
+  - key: readability-identifier-naming.StaticConstantCase
+    value: UPPER_CASE
+    # Usa o estilo UPPER_CASE para constantes estáticas.
+
+  # Membros de classe em snake_case com sufixo _
+  - key: readability-identifier-naming.MemberCase
+    value: lower_case
+    # Membros de classe usam o estilo lower_case.
+  
+  - key: readability-identifier-naming.PrivateMemberSuffix
+    value: "_"
+    # Adiciona um sufixo `_` para membros privados de classe.
+  
+  - key: readability-identifier-naming.ProtectedMemberSuffix
+    value: "_"
+    # Adiciona um sufixo `_` para membros protegidos de classe.
+
+  # Macros em UPPER_SNAKE_CASE
+  - key: readability-identifier-naming.MacroDefinitionCase
+    value: UPPER_CASE
+    # Usa o estilo UPPER_SNAKE_CASE para definições de macros.
+
+  # Limiares para complexidade e tamanho de funções
+  - key: readability-function-cognitive-complexity.Threshold
+    value: 40
+    # Define o limite de complexidade cognitiva das funções para 40.
+  
+  - key: readability-function-size.LineThreshold
+    value: 300
+    # Define o limite de linhas por função para 300.
+
+  # Performance: Falsos positivos comuns para tipos específicos
+  - key: performance-unnecessary-value-param.AllowedTypes
+    value: "std::string,std::string_view,boost::string_view"
+    # Permite parâmetros de valor desnecessários para tipos específicos como `std::string` e `boost::string_view`.
+
+  # OpenMP: exigir default(none) nas regiões paralelas
+  - key: openmp-use-default-none.RequireDefaultNone
+    value: 1
+    # Exige que `default(none)` seja usado nas regiões paralelas do OpenMP.
+  
+ExtraArgsBefore: ["-std=c++23"]
+# Adiciona o argumento de compilação para usar o padrão C++23.
+
