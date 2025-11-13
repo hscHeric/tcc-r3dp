@@ -162,5 +162,3 @@ class RNG {
    */
   [[nodiscard]] uint64_t get_master_seed() const { return master_seed_; }
 };
-
-int sum(int a, int b);

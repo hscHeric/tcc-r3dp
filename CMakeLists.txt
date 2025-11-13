@@ -11,7 +11,7 @@ find_package(OpenMP REQUIRED) #OpenMP
 include_directories(${PROJECT_SOURCE_DIR}/src)
 
 add_library(common STATIC
-    src/common/random.cpp
+    src/common/graph.cpp
 )
 target_link_libraries(common PUBLIC OpenMP::OpenMP_CXX)
 
