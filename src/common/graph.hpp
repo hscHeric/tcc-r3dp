@@ -39,11 +39,11 @@ class Graph {
 
   /// @brief Retorna o número de vértices.
   /// @return Número de vértices.
-  [[nodiscard]] constexpr size_t get_num_vertices() const noexcept;
+  [[nodiscard]] constexpr size_t order() const noexcept;
 
   /// @brief Retorna o número de arestas.
   /// @return Número de arestas.
-  [[nodiscard]] constexpr size_t get_num_edges() const noexcept;
+  [[nodiscard]] constexpr size_t num_edges() const noexcept;
 
   /// @brief Adiciona uma aresta entre u e v.
   /// @param u Primeiro vértice.
@@ -67,8 +67,7 @@ class Graph {
   [[nodiscard]] bool has_edge(size_t u, size_t v) const noexcept;
 
   /// @brief Adiciona um novo vértice ao grafo.
-  /// @warning O índice do novo vértice será o número atual de vértices.
-  void add_vertex() noexcept;
+  void add_vertex(size_t v) noexcept;
 
   /// @brief Retorna o grau do vértice.
   /// @param v Vértice.
